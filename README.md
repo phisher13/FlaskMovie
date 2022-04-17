@@ -18,6 +18,7 @@
 - Create film director;
 - Create/Update/Delete film;
 - Login/Registration with JWT;
+- Api Documentation;
 
 <hr>
 
