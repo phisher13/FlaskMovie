@@ -16,7 +16,8 @@ app = Flask(__name__)
 app.config.from_object(Config)
 db.init_app(app)
 jwt = JWTManager(app)
-celery = Celery(app)
+celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'], include=['api.tasks'])
+celery.conf.update(app.config)
 mail = Mail(app)
 
 # App configuration
