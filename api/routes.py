@@ -38,6 +38,8 @@ class Login(Resource):
 class Register(Resource):
     def post(self):
         params = request.json
+        from api.tasks import send_email
+        send_email.apply_async(args=[params['email']])
         user = User(**params)
         user.save()
         token = user.get_token()
