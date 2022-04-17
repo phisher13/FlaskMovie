@@ -74,6 +74,33 @@ class MovieApi(Resource):
 
         return new_film
 
+    @marshal_with(schema)
+    @jwt_required()
+    def put(self, id):
+        """"
+        Update film by id
+        """
+        film = Film.get_by_id(id)
+        data = movie.payload
+        film.title = data['title']
+        film.genre = data['genre']
+        film.director = data['director']
+
+        film.update()
+
+        return film
+
+    @marshal_with(schema)
+    @jwt_required()
+    def delete(self, id):
+        """
+        Delete film by id
+        """
+        film = Film.get_by_id(id)
+        film.delete()
+
+        return film
+
 
 class DirectorApi(Resource):
     @marshal_with(schema_dir)
