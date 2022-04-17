@@ -102,6 +102,17 @@ class MovieApi(Resource):
         return film
 
 
+class MovieGenreApi(Resource):
+    @marshal_with(schema)
+    def get(self, genre):
+        """
+        Get all films sorted by genre
+        """
+        film = Film.query.filter(Film.genre == genre).all()
+
+        return film
+
+
 class DirectorApi(Resource):
     @marshal_with(schema_dir)
     def get(self):
@@ -131,6 +142,7 @@ class DirectorApi(Resource):
 
 
 movie.add_resource(MovieApi, '/')
+movie.add_resource(MovieGenreApi, '/<genre>')
 movie.add_resource(DirectorApi, '/director')
 movie.add_resource(Login, '/login')
 movie.add_resource(Register, '/register')
